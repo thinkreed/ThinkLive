@@ -1,4 +1,4 @@
-package com.reed.reedlive.presentations.fragment;
+package com.reed.live.presentations.fragment;
 
 import android.support.v4.app.Fragment;
 

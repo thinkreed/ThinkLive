@@ -1,4 +1,4 @@
-package com.reed.reedlive.presentations.activity;
+package com.reed.live.presentations.activity;
 
 import android.Manifest;
 import android.content.Intent;

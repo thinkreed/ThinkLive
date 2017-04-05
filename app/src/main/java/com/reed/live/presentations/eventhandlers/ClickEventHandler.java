@@ -1,4 +1,4 @@
-package com.reed.reedlive.presentations.eventhandlers;
+package com.reed.live.presentations.eventhandlers;
 
 import android.content.Intent;
 import android.os.Bundle;

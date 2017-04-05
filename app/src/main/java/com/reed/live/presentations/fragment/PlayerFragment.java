@@ -1,4 +1,4 @@
-package com.reed.reedlive.presentations.fragment;
+package com.reed.live.presentations.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.reed.thinklive.R;
-import com.reed.reedlive.viewmodels.Utils.Consts;
+import com.reed.live.viewmodels.Utils.Consts;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.listener.StandardVideoAllCallBack;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;

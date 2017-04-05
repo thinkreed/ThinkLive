@@ -1,4 +1,4 @@
-package com.reed.reedlive.presentations.widget;
+package com.reed.live.presentations.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

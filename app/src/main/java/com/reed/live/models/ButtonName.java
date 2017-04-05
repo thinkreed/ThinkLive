@@ -1,4 +1,4 @@
-package com.reed.reedlive.models;
+package com.reed.live.models;
 
 /**
  * Created by thinkreed on 2017/4/4.

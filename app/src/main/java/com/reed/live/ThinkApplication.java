@@ -1,4 +1,4 @@
-package com.reed.reedlive;
+package com.reed.live;
 
 import android.app.Application;
 import com.squareup.leakcanary.LeakCanary;
