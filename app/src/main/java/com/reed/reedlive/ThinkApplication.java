@@ -7,7 +7,7 @@ import com.squareup.leakcanary.LeakCanary;
  * Created by thinkreed on 2017/4/2.
  */
 
-public class ReedApplication extends Application {
+public class ThinkApplication extends Application {
 
     @Override public void onCreate() {
         super.onCreate();

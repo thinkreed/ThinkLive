@@ -27,7 +27,7 @@
       </intent-filter>
     </activity>
     <activity android:name="com.reed.reedlive.presentations.activity.PlayerActivity"/>
-    <activity android:name="com.reed.reedlive.presentations.activity.ReedLiveActivity"/>
+    <activity android:name="com.reed.reedlive.presentations.activity.LiveActivity"/>
   </application>
 
 </manifest>

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         View btn_jump = findViewById(R.id.button_jump);
         btn_jump.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ReedLiveActivity.class);
+                Intent intent = new Intent(MainActivity.this, LiveActivity.class);
                 startActivity(intent);
             }
         });

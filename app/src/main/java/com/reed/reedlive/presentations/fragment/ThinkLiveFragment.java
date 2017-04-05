@@ -28,7 +28,7 @@ import static com.shuyu.gsyvideoplayer.GSYVideoPlayer.TAG;
  * Created by thinkreed on 2017/4/3.
  */
 
-public class ReedLiveFragment extends BaseFragment {
+public class ThinkLiveFragment extends BaseFragment {
 
     private CameraLivingView mCameraLivingView;
     private GestureDetector mGestureDetector;
@@ -92,8 +92,8 @@ public class ReedLiveFragment extends BaseFragment {
         }
     };
 
-    public static ReedLiveFragment newInstance() {
-        return new ReedLiveFragment();
+    public static ThinkLiveFragment newInstance() {
+        return new ThinkLiveFragment();
     }
 
     @Nullable @Override
