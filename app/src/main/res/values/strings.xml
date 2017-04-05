@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ReedLive</string>
+    <string name="jump">jump</string>
+    <string name="player">player</string>
+    <string name="detail_text">detail</string>
+    <string name="title_test">test</string>
+</resources>
