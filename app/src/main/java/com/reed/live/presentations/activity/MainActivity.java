@@ -1,7 +1,6 @@
 package com.reed.live.presentations.activity;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
@@ -9,8 +8,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import com.reed.live.viewmodel.MainViewModel;
+import com.reed.thinklive.BR;
 import com.reed.thinklive.R;
+import com.reed.thinklive.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,25 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DataBindingUtil.setContentView(this, R.layout.activity_main);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setVariable(BR.viewModel, new MainViewModel());
 
         checkApiVersionAndPermission();
-
-        View btn_jump = findViewById(R.id.button_jump);
-        btn_jump.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LiveActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        View btn_player = findViewById(R.id.button_player);
-        btn_player.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PlayerActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void checkApiVersionAndPermission() {

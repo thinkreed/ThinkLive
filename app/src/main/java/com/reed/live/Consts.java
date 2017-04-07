@@ -1,4 +1,4 @@
-package com.reed.live.viewmodels.Utils;
+package com.reed.live;
 
 /**
  * Created by thinkreed on 2017/4/4.
