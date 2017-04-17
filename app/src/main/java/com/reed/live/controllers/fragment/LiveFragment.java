@@ -1,11 +1,14 @@
-package com.reed.live.viewmodel;
+package com.reed.live.controllers.fragment;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 import com.laifeng.sopcastsdk.camera.CameraListener;
 import com.laifeng.sopcastsdk.configuration.AudioConfiguration;
@@ -22,10 +25,10 @@ import com.reed.thinklive.R;
 import static com.shuyu.gsyvideoplayer.GSYVideoPlayer.TAG;
 
 /**
- * Created by thinkreed on 2017/4/8.
+ * Created by thinkreed on 2017/4/3.
  */
 
-public class LiveViewModel {
+public class LiveFragment extends BaseFragment {
 
   private CameraLivingView mCameraLivingView;
   private GestureDetector mGestureDetector;
@@ -34,29 +37,42 @@ public class LiveViewModel {
   private VideoConfiguration mVideoConfiguration;
   private RtmpSender mRtmpSender;
   private String url = "rtmp://192.168.1.102/live/livestream";
-  private Context mContext;
 
-  public LiveViewModel(CameraLivingView mCameraLivingView, Context mContext) {
-    this.mCameraLivingView = mCameraLivingView;
-    this.mContext = mContext;
+  public static LiveFragment newInstance() {
+    return new LiveFragment();
   }
 
-  public void onViewCreated() {
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.fragment_live, container, false);
+  }
+
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
     initLiveView();
   }
 
+  @Override
   public void onResume() {
+    super.onResume();
     mCameraLivingView.resume();
   }
 
+  @Override
   public void onPause() {
+    super.onPause();
     mCameraLivingView.pause();
   }
 
-  public void onDestroyView() {
+  @Override
+  public void onDestroy() {
     mCameraLivingView.stop();
     mCameraLivingView.removeAllViews();
     mCameraLivingView.release();
+    super.onDestroy();
   }
 
   public class GestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -64,37 +80,40 @@ public class LiveViewModel {
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
       if (e1.getX() - e2.getX() > 100 && Math.abs(velocityX) > 200) {
         // Fling left
-        Toast.makeText(mContext, "Fling Left", Toast.LENGTH_SHORT).show();
       } else if (e2.getX() - e1.getX() > 100 && Math.abs(velocityX) > 200) {
         // Fling right
-        Toast.makeText(mContext, "Fling Right", Toast.LENGTH_SHORT).show();
       }
       return super.onFling(e1, e2, velocityX, velocityY);
     }
   }
 
   private RtmpSender.OnSenderListener mSenderListener = new RtmpSender.OnSenderListener() {
-    @Override public void onConnecting() {
+    @Override
+    public void onConnecting() {
 
     }
 
-    @Override public void onConnected() {
+    @Override
+    public void onConnected() {
       mCameraLivingView.start();
       mCurrentBps = mVideoConfiguration.maxBps;
     }
 
-    @Override public void onDisConnected() {
-      Toast.makeText(mContext, "fail to live", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onDisConnected() {
+      Toast.makeText(getActivity(), "fail to live", Toast.LENGTH_SHORT).show();
       mCameraLivingView.stop();
       isRecording = false;
     }
 
-    @Override public void onPublishFail() {
-      Toast.makeText(mContext, "fail to publish stream", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onPublishFail() {
+      Toast.makeText(getActivity(), "fail to publish stream", Toast.LENGTH_SHORT).show();
       isRecording = false;
     }
 
-    @Override public void onNetGood() {
+    @Override
+    public void onNetGood() {
       if (mCurrentBps + 50 <= mVideoConfiguration.maxBps) {
         SopCastLog.d(TAG, "BPS_CHANGE good up 50");
         int bps = mCurrentBps + 50;
@@ -110,7 +129,8 @@ public class LiveViewModel {
       SopCastLog.d(TAG, "Current Bps: " + mCurrentBps);
     }
 
-    @Override public void onNetBad() {
+    @Override
+    public void onNetBad() {
       if (mCurrentBps - 100 >= mVideoConfiguration.minBps) {
         SopCastLog.d(TAG, "BPS_CHANGE bad down 100");
         int bps = mCurrentBps - 100;
@@ -133,21 +153,24 @@ public class LiveViewModel {
 
     CameraConfiguration.Builder cameraBuilder = new CameraConfiguration.Builder();
     cameraBuilder.setOrientation(CameraConfiguration.Orientation.PORTRAIT)
-      .setFacing(CameraConfiguration.Facing.BACK);
+        .setFacing(CameraConfiguration.Facing.BACK);
     CameraConfiguration cameraConfiguration = cameraBuilder.build();
     mCameraLivingView.setCameraConfiguration(cameraConfiguration);
-    //设置预览监听
+    // 设置预览监听
     mCameraLivingView.setCameraOpenListener(new CameraListener() {
-      @Override public void onOpenSuccess() {
-        Toast.makeText(mContext, "摄像头开启成功", Toast.LENGTH_LONG).show();
+      @Override
+      public void onOpenSuccess() {
+        Toast.makeText(getActivity(), "摄像头开启成功", Toast.LENGTH_LONG).show();
       }
 
-      @Override public void onOpenFail(int error) {
-        Toast.makeText(mContext, "摄像头开启失败", Toast.LENGTH_LONG).show();
+      @Override
+      public void onOpenFail(int error) {
+        Toast.makeText(getActivity(), "摄像头开启失败", Toast.LENGTH_LONG).show();
       }
 
-      @Override public void onCameraChange() {
-        Toast.makeText(mContext, "摄像头切换", Toast.LENGTH_LONG).show();
+      @Override
+      public void onCameraChange() {
+        Toast.makeText(getActivity(), "摄像头切换", Toast.LENGTH_LONG).show();
       }
     });
 
@@ -155,44 +178,47 @@ public class LiveViewModel {
     videoBuilder.setSize(640, 360);
     mVideoConfiguration = videoBuilder.build();
     mCameraLivingView.setVideoConfiguration(mVideoConfiguration);
-    //设置水印
+    // 设置水印
     Bitmap watermarkImg =
-      BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
+        BitmapFactory.decodeResource(getActivity().getResources(), R.mipmap.ic_launcher);
     Watermark watermark =
-      new Watermark(watermarkImg, 50, 25, WatermarkPosition.WATERMARK_ORIENTATION_BOTTOM_RIGHT, 8,
-        8);
+        new Watermark(watermarkImg, 50, 25, WatermarkPosition.WATERMARK_ORIENTATION_BOTTOM_RIGHT, 8,
+            8);
     mCameraLivingView.setWatermark(watermark);
 
-    //初始化flv打包器
+    // 初始化flv打包器
     RtmpPacker packer = new RtmpPacker();
     packer.initAudioParams(AudioConfiguration.DEFAULT_FREQUENCY, 16, false);
     mCameraLivingView.setPacker(packer);
-    //设置发送器
+    // 设置发送器
     mRtmpSender = new RtmpSender();
     mRtmpSender.setAddress(url);
     mRtmpSender.setVideoParams(640, 360);
     mRtmpSender.setAudioParams(AudioConfiguration.DEFAULT_FREQUENCY, 16, false);
     mRtmpSender.setSenderListener(mSenderListener);
     mCameraLivingView.setSender(mRtmpSender);
-    //设置手势识别
-    mGestureDetector = new GestureDetector(mContext, new GestureListener());
+    // 设置手势识别
+    mGestureDetector = new GestureDetector(getActivity(), new GestureListener());
     mCameraLivingView.setOnTouchListener(new View.OnTouchListener() {
-      @Override public boolean onTouch(View v, MotionEvent event) {
+      @Override
+      public boolean onTouch(View v, MotionEvent event) {
         mGestureDetector.onTouchEvent(event);
         return false;
       }
     });
 
     mCameraLivingView.setLivingStartListener(new CameraLivingView.LivingStartListener() {
-      @Override public void startError(int error) {
-        //直播失败
-        Toast.makeText(mContext, "start living fail", Toast.LENGTH_SHORT).show();
+      @Override
+      public void startError(int error) {
+        // 直播失败
+        Toast.makeText(getActivity(), "start living fail", Toast.LENGTH_SHORT).show();
         mCameraLivingView.stop();
       }
 
-      @Override public void startSuccess() {
-        //直播成功
-        Toast.makeText(mContext, "start living", Toast.LENGTH_SHORT).show();
+      @Override
+      public void startSuccess() {
+        // 直播成功
+        Toast.makeText(getActivity(), "start living", Toast.LENGTH_SHORT).show();
       }
     });
 

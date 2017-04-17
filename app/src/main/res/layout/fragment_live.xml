@@ -8,7 +8,7 @@
       >
 
     <com.laifeng.sopcastsdk.ui.CameraLivingView
-        android:id="@+id/livingView"
+        android:id="@+id/living_view"
         android:layout_width="800dp"
         android:layout_height="600dp"
         app:aspect_ratio="0.8"

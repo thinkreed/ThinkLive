@@ -1,19 +1,16 @@
-package com.reed.live.presentations.activity;
+package com.reed.live.controllers.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import com.reed.live.viewmodel.MainViewModel;
-import com.reed.thinklive.BR;
+import android.support.v4.app.Fragment;
+import com.reed.live.controllers.fragment.MainFragment;
 import com.reed.thinklive.R;
-import com.reed.thinklive.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends SingleFragmentActivity {
 
   private static final int REQUEST_CODE_FOR_READ_EXTERNAL_STORAGE = 0;
   private static final int REQUEST_CODE_FOR_CAMERA = 1;
@@ -28,10 +25,15 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-    binding.setVariable(BR.viewModel, new MainViewModel());
+
+    setContentView(R.layout.activity_without_toolbar);
 
     checkApiVersionAndPermission();
+  }
+
+  @Override
+  protected Fragment getFragment() {
+    return MainFragment.newInstance();
   }
 
   private void checkApiVersionAndPermission() {

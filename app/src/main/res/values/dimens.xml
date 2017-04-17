@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <dimen name="post_media_height">200dp</dimen>
+  <dimen name="margin_left">5dp</dimen>
+  <dimen name="margin_top">10dp</dimen>
+  <dimen name="margin_bottom">10dp</dimen>
+  <dimen name="margin_right">5dp</dimen>
+
 </resources>

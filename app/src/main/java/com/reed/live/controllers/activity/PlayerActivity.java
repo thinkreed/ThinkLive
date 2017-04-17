@@ -1,7 +1,7 @@
-package com.reed.live.presentations.activity;
+package com.reed.live.controllers.activity;
 
 import android.support.v4.app.Fragment;
-import com.reed.live.presentations.fragment.PlayerFragment;
+import com.reed.live.controllers.fragment.PlayerFragment;
 
 /**
  * Created by thinkreed on 2017/4/4.

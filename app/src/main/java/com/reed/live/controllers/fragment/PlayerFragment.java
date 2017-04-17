@@ -1,48 +1,64 @@
-package com.reed.live.viewmodel;
+package com.reed.live.controllers.fragment;
 
-import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
-import com.reed.live.Consts;
+import android.view.ViewGroup;
+import com.reed.live.utils.Consts;
 import com.reed.thinklive.R;
 import com.shuyu.gsyvideoplayer.listener.StandardVideoAllCallBack;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 /**
- * Created by thinkreed on 2017/4/8.
+ * Created by thinkreed on 2017/4/4.
  */
 
-public class PlayerViewModel {
-  StandardGSYVideoPlayer mVideoPlayer;
-  private Context mContext;
+public class PlayerFragment extends BaseFragment {
+  private StandardGSYVideoPlayer mVideoPlayer;
 
-  public PlayerViewModel(StandardGSYVideoPlayer videoPlayer, Context mContext) {
-    this.mVideoPlayer = videoPlayer;
-    this.mContext = mContext;
+  public static PlayerFragment newInstance() {
+    return new PlayerFragment();
   }
 
-  public void onViewCreated() {
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.fragment_player, container, false);
+  }
+
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
     initPlayer();
   }
 
+  @Override
   public void onResume() {
+    super.onResume();
     mVideoPlayer.onVideoResume();
   }
 
+  @Override
   public void onPause() {
     mVideoPlayer.onVideoPause();
+    super.onPause();
   }
 
+  @Override
   public void onDestroyView() {
     mVideoPlayer.onVideoReset();
     mVideoPlayer.removeAllViews();
     mVideoPlayer.release();
+    super.onDestroyView();
   }
 
   private void initPlayer() {
     mVideoPlayer.setUp(Consts.VIDEO_URL, false);
 
     mVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
-    mVideoPlayer.getTitleTextView().setText(mContext.getString(R.string.title_test));
+    mVideoPlayer.getTitleTextView().setText(getActivity().getString(R.string.title_test));
 
     mVideoPlayer.setStandardVideoAllCallBack(mVideoAllCallBack);
 
@@ -155,5 +171,4 @@ public class PlayerViewModel {
 
     }
   };
-
 }

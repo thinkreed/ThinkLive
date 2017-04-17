@@ -1,4 +1,4 @@
-package com.reed.live.presentations.activity;
+package com.reed.live.controllers.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
